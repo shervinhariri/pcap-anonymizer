@@ -1,0 +1,7 @@
+# Python packages
+flask>=3.1.0
+scapy>=2.5.0
+python-dotenv>=1.0.0
+werkzeug>=3.1.0
+dnspython>=2.4.2
+pyshark>=0.6.0
