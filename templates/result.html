@@ -71,14 +71,6 @@
             transform: translateY(-2px);
         }
 
-        .modify-form {
-            display: none;
-            margin-top: 2rem;
-            padding: 2rem;
-            background-color: var(--primary-color);
-            border-radius: 8px;
-        }
-
         .ip-row {
             display: flex;
             align-items: center;
@@ -90,8 +82,9 @@
         }
 
         .ip-row label {
-            min-width: 150px;
+            min-width: 120px;
             color: var(--text-color);
+            font-weight: bold;
         }
 
         .ip-row input {
@@ -101,6 +94,7 @@
             border: 1px solid var(--border-color);
             padding: 0.8rem;
             border-radius: 4px;
+            font-size: 1rem;
         }
 
         .apply-btn {
@@ -166,6 +160,20 @@
             background-color: #5a5a5a;
             transform: translateY(-2px);
         }
+
+        .modification-form {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .modification-form h3 {
+            color: var(--title-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -214,7 +222,7 @@
                     const field = document.createElement('div');
                     field.className = 'ip-row';
                     field.innerHTML = `
-                        <label>Original IP: ${ip}</label>
+                        <label>IP: ${ip}</label>
                         <input type="text" class="ip-input" placeholder="New IP" data-original-ip="${ip}">
                     `;
                     fields.appendChild(field);
