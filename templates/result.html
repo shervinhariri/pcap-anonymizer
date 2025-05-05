@@ -79,17 +79,31 @@
             border-radius: 8px;
         }
 
-        .modify-form input {
+        .ip-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
             background-color: var(--secondary-color);
+            border-radius: 4px;
+            gap: 1rem;
+        }
+
+        .ip-row label {
+            min-width: 150px;
+            color: var(--text-color);
+        }
+
+        .ip-row input {
+            flex: 1;
+            background-color: var(--primary-color);
             color: var(--text-color);
             border: 1px solid var(--border-color);
             padding: 0.8rem;
             border-radius: 4px;
-            margin-right: 0.5rem;
-            width: 200px;
         }
 
-        .save-btn {
+        .apply-btn {
             background-color: var(--success-color);
             color: white;
             padding: 0.8rem 1.5rem;
@@ -98,10 +112,9 @@
             cursor: pointer;
             font-size: 1rem;
             transition: all 0.3s ease;
-            margin-top: 1rem;
         }
 
-        .save-btn:hover {
+        .apply-btn:hover {
             background-color: #2ecc71;
             transform: translateY(-2px);
         }
@@ -153,20 +166,6 @@
             background-color: #5a5a5a;
             transform: translateY(-2px);
         }
-
-        .ip-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background-color: var(--secondary-color);
-            border-radius: 4px;
-        }
-
-        .ip-row label {
-            margin-right: 1rem;
-            min-width: 150px;
-        }
     </style>
 </head>
 <body>
@@ -176,28 +175,19 @@
             <p>Analysis complete! Here are your results</p>
         </div>
         
-        <div style="text-align: center;">
-            <button class="modify-btn" onclick="showModificationForm()">Modify IPs</button>
-        </div>
-
         <div class="results-container">
             <h2>Top Talkers</h2>
+            <div style="text-align: center;">
+                <button class="modify-btn" onclick="showModificationForm()">Modify IPs</button>
+            </div>
+
             <div id="modificationForm" class="modification-form" style="display: none;">
                 <h3>Modify IP Addresses</h3>
                 <div id="modificationFields"></div>
-                <button type="button" class="apply-btn" onclick="applyModifications()">Apply Changes</button>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button type="button" class="apply-btn" onclick="applyModifications()">Apply Changes</button>
+                </div>
             </div>
-            <table class="results-table">
-                <thead>
-                    <tr>
-                        <th>IP Address</th>
-                        <th>DNS Record</th>
-                        <th>Packet Count</th>
-                    </tr>
-                </thead>
-                <tbody id="resultsTable">
-                </tbody>
-            </table>
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">
@@ -222,9 +212,9 @@
                 const ip = row.cells[0].textContent;
                 if (ip && ip !== 'N/A') {  // Only add fields for valid IPs
                     const field = document.createElement('div');
-                    field.className = 'modification-field';
+                    field.className = 'ip-row';
                     field.innerHTML = `
-                        <label>${ip}</label>
+                        <label>Original IP: ${ip}</label>
                         <input type="text" class="ip-input" placeholder="New IP" data-original-ip="${ip}">
                     `;
                     fields.appendChild(field);
