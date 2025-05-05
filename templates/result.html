@@ -97,6 +97,20 @@
             font-size: 1rem;
         }
 
+        .modification-form {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .modification-form h3 {
+            color: var(--title-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
         .apply-btn {
             background-color: var(--success-color);
             color: white;
@@ -111,35 +125,6 @@
         .apply-btn:hover {
             background-color: #2ecc71;
             transform: translateY(-2px);
-        }
-
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            background-color: var(--primary-color);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .results-table th,
-        .results-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .results-table th {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-        }
-
-        .results-table tr:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .results {
-            margin-top: 2rem;
         }
 
         .back-btn {
@@ -159,20 +144,6 @@
         .back-btn:hover {
             background-color: #5a5a5a;
             transform: translateY(-2px);
-        }
-
-        .modification-form {
-            margin-top: 2rem;
-            padding: 2rem;
-            background-color: var(--primary-color);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .modification-form h3 {
-            color: var(--title-color);
-            margin-bottom: 1.5rem;
-            text-align: center;
         }
     </style>
 </head>
@@ -211,22 +182,28 @@
         function showModificationForm() {
             const form = document.getElementById('modificationForm');
             const fields = document.getElementById('modificationFields');
-            const table = document.getElementById('resultsTable');
             
             fields.innerHTML = '';
-            const rows = table.getElementsByTagName('tr');
+            const ipAddresses = [
+                '192.168.90.90',
+                '60.20.30.20',
+                '10.10.10.10',
+                '192.168.17.17',
+                '5.5.5.5',
+                '192.168.0.215',
+                '192.168.0.255',
+                '104.18.36.252',
+                '2.2.2.2'
+            ];
             
-            for (let row of rows) {
-                const ip = row.cells[0].textContent;
-                if (ip && ip !== 'N/A') {  // Only add fields for valid IPs
-                    const field = document.createElement('div');
-                    field.className = 'ip-row';
-                    field.innerHTML = `
-                        <label>IP: ${ip}</label>
-                        <input type="text" class="ip-input" placeholder="New IP" data-original-ip="${ip}">
-                    `;
-                    fields.appendChild(field);
-                }
+            for (let ip of ipAddresses) {
+                const field = document.createElement('div');
+                field.className = 'ip-row';
+                field.innerHTML = `
+                    <label>IP: ${ip}</label>
+                    <input type="text" class="ip-input" placeholder="New IP" data-original-ip="${ip}">
+                `;
+                fields.appendChild(field);
             }
             
             form.style.display = 'block';
@@ -234,13 +211,13 @@
 
         function applyModifications() {
             const modifications = [];
-            const fields = document.getElementsByClassName('modification-field');
+            const fields = document.getElementsByClassName('ip-row');
             
             for (let field of fields) {
                 const originalIp = field.querySelector('.ip-input').dataset.originalIp;
                 const newIp = field.querySelector('.ip-input').value;
                 
-                if (newIp && newIp.trim() !== '') {  // Only add modifications for non-empty new IPs
+                if (newIp && newIp.trim() !== '') {
                     modifications.push({
                         original_ip: originalIp,
                         new_ip: newIp.trim()
